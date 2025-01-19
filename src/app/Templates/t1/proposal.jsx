@@ -19,17 +19,17 @@ const ProposalStress = () => {
   }, []);
 
   return (
-    <div id="proposalStress" className="bg-[#ffffff] py-20 px-6">
+    <div id="proposalStress" className="bg-[#e6a310] py-20 px-6">
       {/* Header Section */}
       <div
         className={`text-center mb-8 transition-all duration-700 ease-in-out ${
           isVisible ? "animate-fade-up" : "opacity-0"
         }`}
       >
-        <h2 className="text-3xl font-bold text-[#333333] mb-2">
+        <h2 className="text-3xl font-bold text-[#191919] mb-2">
           Say Goodbye to Proposal Stress
         </h2>
-        <p className="text-lg text-[#b8b8b8]">
+        <p className="text-lg text-[#e8e8e8]">
           Accurate bids made simple and fast
         </p>
       </div>
@@ -40,7 +40,7 @@ const ProposalStress = () => {
           isVisible ? "animate-fade-up delay-200" : "opacity-0"
         }`}
       >
-        <p className="text-[#333333] text-base leading-relaxed">
+        <p className="text-[#e8e8e8]/85 text-base italic leading-relaxed">
           Creating construction proposals shouldn’t be a hassle. Our platform
           solves the common problems construction companies face. With just a
           few variables, you can produce precise, professional proposals in
