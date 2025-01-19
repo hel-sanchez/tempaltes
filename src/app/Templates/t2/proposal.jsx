@@ -19,17 +19,17 @@ const ProposalStress = () => {
   }, []);
 
   return (
-    <div id="proposalStress" className="bg-[#ffffff] py-20 px-6">
+    <div id="proposalStress" className="bg-[#c1440e]/85 py-20 px-6">
       {/* Header Section */}
       <div
         className={`text-center mb-8 transition-all duration-700 ease-in-out ${
           isVisible ? "animate-fade-up" : "opacity-0"
         }`}
       >
-        <h2 className="text-3xl font-bold text-[#333333] mb-2">
+        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-2">
           Say Goodbye to Proposal Stress
         </h2>
-        <p className="text-lg text-[#b8b8b8]">
+        <p className="text-lg text-[#ededed]">
           Accurate bids made simple and fast
         </p>
       </div>
@@ -40,7 +40,7 @@ const ProposalStress = () => {
           isVisible ? "animate-fade-up delay-200" : "opacity-0"
         }`}
       >
-        <p className="text-[#333333] text-base leading-relaxed">
+        <p className="text-[#ededed]/85 text-base italic leading-relaxed">
           Creating construction proposals shouldn’t be a hassle. Our platform
           solves the common problems construction companies face. With just a
           few variables, you can produce precise, professional proposals in
@@ -56,7 +56,7 @@ const ProposalStress = () => {
           isVisible ? "animate-fade-up delay-400" : "opacity-0"
         }`}
       >
-        <button className="px-8 py-4 bg-[#333333] text-[#ffffff] font-semibold text-lg rounded-lg shadow-md hover:bg-[#ffa500] hover:text-black hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+        <button className="px-8 py-4 bg-[#c1440e] text-[#1a1a1a] font-semibold text-lg rounded-lg shadow-md hover:bg-[#1a1a1a] hover:text-[#ededed] hover:shadow-lg transform hover:scale-105 transition-all duration-300">
           Schedule a Demo
         </button>
       </div>

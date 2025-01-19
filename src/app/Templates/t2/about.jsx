@@ -23,22 +23,22 @@ const stats = [
   {
     number: 90,
     icon: <Briefcase />, // Bootstrap icon for contracts
-    text: "contracts",
+    text: "CONTRACTS",
   },
   {
     number: 465,
     icon: <Calendar />, // Bootstrap icon for working days
-    text: "working days",
+    text: "WORKING DAYS",
   },
   {
     number: 175,
     icon: <HandThumbsUp />, // Bootstrap icon for positive feedback
-    text: "positive feedbacks",
+    text: "POSITIVE FEEDBACKS",
   },
   {
     number: 39,
     icon: <Trophy />, // Bootstrap icon for awards
-    text: "awards",
+    text: "AWARDS",
   },
 ];
 
@@ -71,23 +71,23 @@ const About = () => {
   const isInView = useInView(ref);
 
   return (
-    <section
-      className="relative min-h-screen bg-gradient-to-r from-[#f1f1f1] to-[#ffffff] py-20 px-8"
-      id="about"
-    >
-      <div className="container mx-auto max-w-8xl mt-5">
-        {/* Avoid Costly Mistakes Section with Different Background */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-16 mb-16 bg-[#f7f7f7] py-12 px-8 rounded-lg shadow-lg">
-          <div className="md:w-1/2 text-center md:text-left">
-            <h2 className="text-4xl font-bold text-[#4682b4] mb-6 relative">
-              <span className="absolute left-0 bottom-0 w-16 h-1 bg-[#ffa500] rounded-full"></span>
-              Avoid Costly Mistakes
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              Is our proposal process leaving money on the table?
-            </p>
-            {/* Grid for smaller screens (1 column), larger screens (2 columns) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <section
+    className="relative min-h-screen bg-[#1a1a1a] py-20 px-8"
+    id="about"
+  >
+    <div className="container mx-auto max-w-8xl mt-5">
+      {/* Avoid Costly Mistakes Section with Different Background */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-16 mb-16 bg-[#0b3d25]/95 py-12 px-8 rounded-lg shadow-lg">
+        <div className="md:w-1/2 text-center md:text-left">
+          <h2 className="text-4xl font-bold text-[#ededed] mb-6 relative">
+            <span className="absolute left-0 bottom-0 w-16 h-1 bg-[#c1440e] rounded-full"></span>
+            Avoid Costly Mistakes
+          </h2>
+          <p className="text-lg text-[#000000] leading-relaxed mb-8">
+            Is our proposal process leaving money on the table?
+          </p>
+            {/* Grid for 2 rows and 4 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[
                 {
                   text: "Proposals take too long to create.",
@@ -124,15 +124,15 @@ const About = () => {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-6 border border-[#4682b4] rounded-lg shadow-lg bg-white text-[#333333] hover:bg-[#f1f1f1] hover:scale-105 transition-all duration-300 ease-in-out"
+                  className="flex flex-col items-center text-center gap-4 p-4 border  border-[#c1440e] rounded-lg shadow-lg text-[#ededed] hover:bg-[#e8e8e8] hover:text-[#1a1a1a] hover:scale-105 transition-all duration-300 ease-in-out"
                 >
-                  <span className="text-[#4682b4] text-xl">{item.icon}</span>
-                  <span>{item.text}</span>
+                  <span className="text-[#c1440e] text-3xl">{item.icon}</span>
+                  <span className="text-sm md:text-base">{item.text}</span>
                 </div>
               ))}
             </div>
-            <div className="mt-8">
-              <button className="inline-block bg-[#ffa500] text-black hover:text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#4682b4] transition-colors duration-300">
+            <div className="mt-8 text-center md:text-left">
+              <button className="inline-block bg-[#c1440e] text-black hover:text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#ededed] hover:text-[#0b3d25] transition-colors duration-300">
                 Schedule a Demo
               </button>
             </div>
@@ -145,43 +145,53 @@ const About = () => {
           initial="hidden"
           whileInView={"show"}
           viewport={{ once: false, amount: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-16"
         >
           {stats.map((item, index) => (
             <motion.div
               variants={statsItem}
-              className="flex flex-col justify-center items-center text-center bg-white p-6 rounded-lg shadow-lg"
+              className="flex flex-col justify-center items-center text-center bg-none p-8 hover:scale-105 transition-transform duration-300 ease-in-out"
               key={index}
             >
-              {/* Digital Styled Number */}
-              <div
-                ref={ref}
-                className="flex items-center justify-center text-black text-5xl mb-2 font-[Press Start 2P], monospace drop-shadow-lg"
-              >
-                {isInView && (
-                  <CountUp start={0} end={item.number} duration={6} />
-                )}
+              {/* Circle with Number */}
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-28 h-28 rounded-full border-4 border-[#c1440e] flex items-center justify-center">
+                  <span
+                    ref={ref}
+                    className="text-[#0b3d25] text-4xl font-bold drop-shadow-lg"
+                  >
+                    {isInView && (
+                      <CountUp start={0} end={item.number} duration={6} />
+                    )}
+                  </span>
+                </div>
               </div>
 
-              {/* Text Section */}
-              <div className="flex items-center text-xl font-semibold text-[#4682b4]">
-                <span className="mr-2">{item.icon}</span> <h4>{item.text}</h4>
+              {/* Icon and Text Section */}
+              <div className="flex flex-col items-center">
+                <span className="text-3xl text-[#ededed] mb-2">
+                  {item.icon}
+                </span>
+                <h4 className="text-lg font-semibold text-[#ededed]">
+                  {item.text}
+                </h4>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Your Time-Saving Solution Section with Boarded Up Design */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-16 mb-16 bg-[#4682b4] py-12 px-8 rounded-lg shadow-lg relative">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-16 mb-16 bg-[#ededed]/5 py-12 px-8 rounded-lg shadow-lg relative">
+          {/* Content Section */}
           <div className="w-full md:w-1/2 text-center md:text-left relative z-10">
-            <h2 className="text-4xl font-bold text-[#ffa500] mb-6 relative">
-              <span className="absolute left-0 bottom-0 w-16 h-1 bg-[#ffa500] rounded-full"></span>
+            <h2 className="text-4xl font-bold text-[#c1440e] mb-6 relative">
+              <span className="absolute left-0 bottom-0 w-16 h-1 bg-[#0b3d25] rounded-full"></span>
               Your Time-Saving Solution
             </h2>
-            <p className="text-lg text-white leading-relaxed mb-8">
+            <p className="text-lg text-[#000000] leading-relaxed mb-8">
               Transform how you create proposals with unmatched efficiency.
             </p>
-            {/* Grid for smaller screens (1 column), larger screens (2 columns) */}
+            {/* Grid Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
@@ -203,22 +213,17 @@ const About = () => {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-6 border border-[#4682b4] text-[#333333] rounded-lg shadow-lg bg-white hover:bg-[#f1f1f1] hover:scale-105 transition-all duration-300 ease-in-out relative"
+                  className="flex flex-col items-center text-center hover:text-[#1a1a1a]  p-6 border border-[#0b3d25] rounded-lg shadow-lg bg-[#c1440e] text-[#e8e8e8] hover:bg-[#ededed] hover:scale-105 transition-all duration-300 ease-in-out relative"
                 >
-                  <span className="text-[#4682b4] text-xl">{item.icon}</span>
-                  <span>{item.text}</span>
-                  {/* Nail Icons */}
-                  <span className="absolute top-0 left-0 p-1 text-[#4682b4] text-xl">
-                    🪛
+                  <span className="text-[#0b3d25] text-3xl mb-4">
+                    {item.icon}
                   </span>
-                  <span className="absolute bottom-0 right-0 p-1 text-[#4682b4] text-xl">
-                    🪛
-                  </span>
+                  <span className="text-sm md:text-base">{item.text}</span>
                 </div>
               ))}
             </div>
             <div className="mt-8">
-              <button className="inline-block bg-[#ffa500] text-black px-8 py-4 rounded-lg font-semibold hover:bg-[#333333] hover:text-white transition-colors duration-300">
+              <button className="inline-block bg-[#0b3d25] text-[#ededed] px-8 py-4 rounded-lg font-semibold hover:bg-[#1a1a1a] hover:text-[#c1440e] transition-colors duration-300">
                 Schedule a Demo
               </button>
             </div>
@@ -226,15 +231,20 @@ const About = () => {
 
           {/* Background "Boarded Up" Design */}
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 z-0"
+            className="absolute inset-0 bg-cover bg-center opacity-20 z-0 rounded-lg"
             style={{
               backgroundImage: "url('path-to-your-wooden-texture.jpg')",
             }}
           ></div>
+
           {/* Nail Effects */}
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-            <div className="absolute top-4 left-4 w-4 h-4 bg-[#333333] rounded-full shadow-lg"></div>
-            <div className="absolute bottom-4 right-4 w-4 h-4 bg-[#333333] rounded-full shadow-lg"></div>
+          <div className="absolute inset-0 flex justify-between items-start">
+            <div className="w-4 h-4 bg-[#c1440e] rounded-full shadow-lg"></div>
+            <div className="w-4 h-4 bg-[#c1440e] rounded-full shadow-lg"></div>
+          </div>
+          <div className="absolute inset-0 flex justify-between items-end">
+            <div className="w-4 h-4 bg-[#c1440e] rounded-full shadow-lg"></div>
+            <div className="w-4 h-4 bg-[#c1440e] rounded-full shadow-lg"></div>
           </div>
         </div>
       </div>
