@@ -149,6 +149,22 @@ function Home() {
           Go to New Template 3
         </button>
       </Link>
+
+      <Link to="/N1">
+        <button
+          style={{
+            margin: '10px',
+            padding: '15px 30px',
+            backgroundColor: 'orange',
+            color: 'black',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+          }}
+        >
+          NEWER TEMPLATE
+        </button>
+      </Link>
     </div>
   );
 }
