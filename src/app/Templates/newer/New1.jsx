@@ -120,7 +120,7 @@ export default function New1() {
           <div className="hidden lg:flex space-x-4">
             <Link
               href="/login"
-              className={`bg-[#191919] text-[#e8e8e8] border-2  mb-3 text-md px-4 py-2 border-black rounded-lg hover:bg-[#203a53] hover:text-[#e8e8e8] transition duration-300 ${
+              className={`bg-[#203a53] text-[#e8e8e8] border-2 border-[#203a53]  mb-3 text-md px-4 py-2  rounded-lg hover:bg-[#e6a310] hover:border-[#e6a310] hover:text-[#191919] transition duration-300 ${
                 scrolling ? "text-sm px-2 py-1" : "text-md"
               }`}
             >
@@ -140,13 +140,13 @@ export default function New1() {
         {/* Main Content Inside Header (Visible only when header is expanded) */}
         {!scrolling && (
           <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight mb-8 animate-fade-in relative">
+            <h1 className="text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight mb-2 animate-fade-in relative">
               <span className="relative text-[#203a53]">
                 Proposals Made Easy
               </span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-[#191919] mb-10 animate-slide-left animate-delay-400 max-w-xl mx-auto">
-              If you're struggling with proposals, Simple Projex is the right
+            <p className="text-md sm:text-xl md:text-lg text-[#191919] mb-10 animate-slide-left animate-delay-400 max-w-xl mx-auto">
+              If you're struggling with proposals, Simple Projex <br/>is the right
               solution for you!
             </p>
             <div className="space-x-8 animate-fade-in animate-delay-600">
@@ -156,7 +156,7 @@ export default function New1() {
                     url: "https://calendly.com/avorino/simple-projex-demo",
                   })
                 }
-                className="bg-[#e6a310] text-[#203a53] px-10 py-5 rounded-xl text-lg font-semibold hover:text-black hover:bg-[#203a53] hover:text-white transition duration-300 transform hover:scale-105"
+                className="bg-[#e6a310] text-[#191919] px-10 py-2  text-lg font-semibold hover:text-black hover:bg-[#203a53] hover:text-white transition duration-300 transform hover:scale-105"
               >
                 Schedule a Demo
               </button>

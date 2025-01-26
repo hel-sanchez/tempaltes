@@ -5,12 +5,12 @@ const Footer = () => {
     <footer className="relative p-6 bg-[#203a53] text-[#e6a310]">
       <div className="container mx-auto flex flex-wrap justify-between">
         {/* Logo and Description */}
-        <div className="w-full md:w-1/4 mb-6 md:mb-0 flex items-center">
+        <div className="w-full md:w-1/4 mb-6 md:mb-0 flex items-center pr-10">
           <div className="ml-4 flex flex-col items-start">
             <img
               src="/projex.jpg"
               alt="Simple Projex Logo"
-              className="h-28 w-28 w-auto mb-4"
+              className="h-15 w-15 w-auto mb-4"
             />
             <p className="text-sm text-[#e8e8e8]">
               Revolutionizing construction with cutting-edge technology and

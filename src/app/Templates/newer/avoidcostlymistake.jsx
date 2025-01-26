@@ -20,25 +20,25 @@ const AvoidCostlyMistakes = () => {
       icon: <Hourglass />,
     },
     {
-      title: "Inefficiently limits your growth potential.",
+      title: "Inefficiently limits growth potential.",
       description:
-        "This inefficiency directly impacts your ability to scale and limits the number of opportunities you can pursue.",
+        "This can directly impacts your ability to scale and limits the number of opportunities you can pursue.",
       icon: <GraphDown />,
     },
     {
-      title: "Inconsistent proposals damage reputation.",
+      title: "Inconsistency damage reputation.",
       description:
-        "A lack of standardization can undermine client confidence in your ability to deliver consistent results.",
+        "A lack of standardization can affect client confidence in your ability to deliver consistent results.",
       icon: <FileLock />,
     },
     {
-      title: "Complex software confuses your team.",
+      title: "Complex software.",
       description:
-        "Using overly complicated software for proposal generation can frustrate your team and result in slower turnaround times.",
+        "Using complicated software for proposal generation can be frustrating and result in slower turnaround.",
       icon: <FileText />,
     },
     {
-      title: "Lack of automation wastes time.",
+      title: "Lack of automation.",
       description:
         "Manual processes require significant time and effort, making it harder to focus on strategic tasks.",
       icon: <Hourglass />,
@@ -52,7 +52,7 @@ const AvoidCostlyMistakes = () => {
     {
       title: "Poor communication within the team.",
       description:
-        "Ineffective collaboration tools can lead to misunderstandings and mistakes in proposal creation.",
+        "Ineffective collaboration tools can lead to misunderstandings and mistakes in proposal.",
       icon: <FileLock />,
     },
     {
@@ -96,7 +96,7 @@ const AvoidCostlyMistakes = () => {
 
   return (
     <section
-      className="relative bg-cover bg-center py-16 px-8"
+      className="relative bg-cover bg-center py-16 px-8 h-[600px]"
       style={{
         backgroundImage: "url('/avoidcost.jpg')",
         backgroundRepeat: "no-repeat",
@@ -106,7 +106,14 @@ const AvoidCostlyMistakes = () => {
       <div className="absolute inset-0 bg-white opacity-70"></div>
 
       {/* Content Wrapper */}
-      <div className="relative container mx-auto max-w-7xl mt-10 mb-10">
+      <div
+      className="relative container mx-auto max-w-7xl mt-10 mb-10"
+      style={{
+        height: "600px",
+        width: "1980px",   
+        overflow: "hidden", 
+      }}
+    >
         {/* Header */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-12">
           <div className="text-left">
@@ -132,7 +139,12 @@ const AvoidCostlyMistakes = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative flex flex-col items-center">
+        <div 
+          className="relative flex flex-col items-center"
+          style = {{
+            maxHeight: "170vh"
+          }}
+          >
           {/* For smaller screens, enable vertical scrolling */}
           <div
             className="relative overflow-x-auto md:overflow-y-auto w-full mx-12 md:overflow-hidden"

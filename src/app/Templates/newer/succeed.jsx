@@ -62,17 +62,6 @@ const Succeed = () => {
           </div>
         </div>
 
-        {/* Testimonial Section */}
-        <div className="mt-16 text-center max-w-2xl mx-auto px-4">
-          <blockquote className="text-xl italic text-[#e8e8e8] leading-relaxed mb-8">
-            &quot;Simple Projex has transformed my bidding process completely. I
-            close more deals with confidence.&quot;
-          </blockquote>
-          <p className="font-bold text-[#e6a310]">
-            John D. Construction Business Owner
-          </p>
-        </div>
-
         {/* Call to Action Section */}
         <div className="text-center mt-16">
           <button
