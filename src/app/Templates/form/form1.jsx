@@ -1,15 +1,13 @@
 "use client";
 import { useState } from "react";
-import Form2 from "./form2"; // Import Form2
 
 function Form1() {
-  const [showForm1, setShowForm1] = useState(true);
   const [selectedLinearFeet, setSelectedLinearFeet] = useState([]);
   const [selectedSquareFeet, setSelectedSquareFeet] = useState([]);
   const [selectedCubicFeet, setSelectedCubicFeet] = useState([]);
   const [selectedCount, setSelectedCount] = useState([]);
 
-  const [inputValues, setInputValues] = useState({}); // Store input values for each selected component
+  const [inputValues, setInputValues] = useState({});
 
   const [showLinearFeet, setShowLinearFeet] = useState(false);
   const [showSquareFeet, setShowSquareFeet] = useState(false);
@@ -134,6 +132,14 @@ function Form1() {
     });
   };
 
+  const handleItemClick = (item) => {
+    setSelectedLinearFeet((prevSelected) =>
+      prevSelected.includes(item)
+        ? prevSelected.filter((i) => i !== item)
+        : [...prevSelected, item]
+    );
+  };
+
   // Toggle show state for categories
   const toggleLinearFeet = () => setShowLinearFeet((prev) => !prev);
   const toggleSquareFeet = () => setShowSquareFeet((prev) => !prev);
@@ -156,9 +162,7 @@ function Form1() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-[#e8e8e8] min-h-screen p-4">
-      <div className="flex flex-col items-center justify-center bg-[#ffffff] rounded shadow">
-      {showForm1 ? (
-        <>
+      <div className="flex flex-col items-center justify-center bg-[#ffffff] rounded shadow p-6">
           <h1 className="text-3xl font-bold text-gray-900 mt-6 md:mt-0">
             Parameters
           </h1>
@@ -182,7 +186,7 @@ function Form1() {
                     placeholder="Search..."
                     value={linearFeetSearch}
                     onChange={(e) => setLinearFeetSearch(e.target.value)}
-                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53] text-[#e6a310]"
                   />
                   <select
                     multiple
@@ -196,7 +200,7 @@ function Form1() {
                     ))}
                   </select>
                   <div className=" text-[#203a53]">
-                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <p className="text-[#e6a310] mb-6 text-[12px]">*Ctrl+click* for multiple selection</p>
                     <h3 className="font-semibold">Selected Linear Feet:</h3>
                     <ul>
                       {selectedLinearFeet.map((item) => (
@@ -232,7 +236,7 @@ function Form1() {
                     placeholder="Search..."
                     value={squareFeetSearch}
                     onChange={(e) => setSquareFeetSearch(e.target.value)}
-                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53] text-[#e6a310]"
                   />
                   <select
                     multiple
@@ -246,7 +250,7 @@ function Form1() {
                     ))}
                   </select>
                   <div className="text-[#203a53]">
-                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <p className="text-[#e6a310] mb-6 text-[12px]">*Ctrl+click* for multiple selection</p>
                     <h3 className="font-semibold">Selected Square Feet:</h3>
                     <ul>
                       {selectedSquareFeet.map((item) => (
@@ -282,7 +286,7 @@ function Form1() {
                     placeholder="Search..."
                     value={cubicFeetSearch}
                     onChange={(e) => setCubicFeetSearch(e.target.value)}
-                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53] text-[#e6a310]"
                   />
                   <select
                     multiple
@@ -296,7 +300,7 @@ function Form1() {
                     ))}
                   </select>
                   <div className="text-[#203a53]">
-                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <p className="text-[#e6a310] mb-6 text-[12px]">*Ctrl+click* for multiple selection</p>
                     <h3 className="font-semibold">Selected Cubic Feet:</h3>
                     <ul>
                       {selectedCubicFeet.map((item) => (
@@ -332,7 +336,7 @@ function Form1() {
                     placeholder="Search..."
                     value={countSearch}
                     onChange={(e) => setCountSearch(e.target.value)}
-                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53] text-[#e6a310]"
                   />
                   <select
                     multiple
@@ -346,7 +350,7 @@ function Form1() {
                     ))}
                   </select>
                   <div className="text-[#203a53]">
-                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <p className="text-[#e6a310] mb-6 text-[12px]">*Ctrl+click* for multiple selection</p>
                     <h3 className="font-semibold">Selected Count:</h3>
                     <ul>
                       {selectedCount.map((item) => (
@@ -370,12 +374,10 @@ function Form1() {
 
           <button
             onClick={() => alert("Project Created")}
-            className="mt-6 px-6 py-3 mb-5 bg-[#203a53] hover:bg-[#e6a310] hover:text-[#203a53] text-white rounded-lg shadow-md"
+            className="mt-6 px-6 py-3 mb-5 bg-[#203a53] hover:bg-[#e6a310] hover:text-[#203a53] text-white rounded-lg shadow-md font-bold"
           >
             Create project
           </button>
-        </>
-      ) : null}
         </div>
     </div>
   );
