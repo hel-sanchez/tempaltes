@@ -3,16 +3,23 @@ import { useState } from "react";
 import Form2 from "./form2"; // Import Form2
 
 function Form1() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchTermSq, setSearchTermSq] = useState("");
-  const [searchTermCount, setSearchTermCount] = useState("");
+  const [showForm1, setShowForm1] = useState(true);
+  const [selectedLinearFeet, setSelectedLinearFeet] = useState([]);
+  const [selectedSquareFeet, setSelectedSquareFeet] = useState([]);
+  const [selectedCubicFeet, setSelectedCubicFeet] = useState([]);
+  const [selectedCount, setSelectedCount] = useState([]);
 
-  const [selectedLinearFeetItems, setSelectedLinearFeetItems] = useState([]);
-  const [selectedSquareFeetItems, setSelectedSquareFeetItems] = useState([]);
-  const [selectedCountItems, setSelectedCountItems] = useState([]);
-  const [selectedCubicFeetItems, setSelectedCubicFeetItems] = useState([]);
+  const [inputValues, setInputValues] = useState({}); // Store input values for each selected component
 
-  const [showForm1, setShowForm1] = useState(true); // State to toggle between forms
+  const [showLinearFeet, setShowLinearFeet] = useState(false);
+  const [showSquareFeet, setShowSquareFeet] = useState(false);
+  const [showCubicFeet, setShowCubicFeet] = useState(false);
+  const [showCount, setShowCount] = useState(false);
+
+  const [linearFeetSearch, setLinearFeetSearch] = useState("");
+  const [squareFeetSearch, setSquareFeetSearch] = useState("");
+  const [cubicFeetSearch, setCubicFeetSearch] = useState("");
+  const [countSearch, setCountSearch] = useState("");
 
   const linearFeetItems = [
     "Footing Length",
@@ -48,86 +55,108 @@ function Form1() {
     "Shingle Roof - Pitched Roof",
   ];
 
+  const cubicFeetItems = [
+    "Footing",
+    "Slab",
+  ];
+
   const countItems = [
-    "Dumpster - 2",
-    "Attic Access - 1",
-    "Bathroom Floor Drain - 0",
+    "Dumpster",
+    "Attic Access",
+    "Bathroom Floor Drain",
     "Footing Pad",
-    "Hardy Frame - 1",
-    "Ceiling Fan Installation - 3",
-    "Custom Built Niche - 2",
-    "Regular Outlets - 12",
-    "GFCI Outlets - 6",
-    "Exterior Outlets - 2",
+    "Hardy Frame",
+    "Ceiling Fan Installation",
+    "Custom Built Niche",
+    "Regular Outlets",
+    "GFCI Outlets",
+    "Exterior Outlets",
     "Pop Outlets",
-    "Exterior Lights - 4",
-    "Flashing - 6",
-    "Hose Connection - 2",
-    "Install Vanity - 3",
-    "Island Framing - 1",
-    "Island Plumbing - 1",
-    "Kitchen Sink & Garbage Disposal - 1",
-    "Main Panel - 1",
-    "Sub Panel - 1",
-    "Number of Exterior Doors - 1",
-    "Number of Interior Doors - 4",
+    "Exterior Lights",
+    "Flashing ",
+    "Hose Connection",
+    "Install Vanity",
+    "Island Framing",
+    "Island Plumbing",
+    "Kitchen Sink & Garbage Disposal",
+    "Main Panel",
+    "Sub Panel",
+    "Number of Exterior Doors",
+    "Number of Interior Doors",
     "Sliding Door",
     "Pre-hung Interior Door",
     "Pocket Door",
     "Barn Doors",
     "Closer Door",
-    "Number of Windows - 7",
-    "Number of Drain Connections - 5",
-    "Number of Sink Cutouts - 3",
-    "Potfiller Installation - 1",
-    "Light Switches - 12",
-    "Recessed Light - 20",
-    "Pendant Light - 3",
-    "Shower Fixture - 2",
-    "Toilet Installation - 2",
+    "Number of Windows",
+    "Number of Drain Connections",
+    "Number of Sink Cutouts",
+    "Potfiller Installation",
+    "Light Switches",
+    "Recessed Light",
+    "Pendant Light",
+    "Shower Fixture",
+    "Toilet Installation",
     "Transformer",
     "Undersink R/O Installation",
     "Wall-to-Wall Bathtub",
-    "Gas Connection - 2",
-    "HVAC Installation - 1",
-    "Number of Bathrooms - 2",
+    "Gas Connection",
+    "HVAC Installation",
+    "Number of Bathrooms",
   ];
 
-  const handleSelectItem = (item, type) => {
-    let selectedItems;
-    if (type === "linearFeet") {
-      selectedItems = selectedLinearFeetItems;
-      setSelectedLinearFeetItems(
-        selectedItems.includes(item)
-          ? selectedItems.filter((i) => i !== item)
-          : [...selectedItems, item]
-      );
-    } else if (type === "squareFeet") {
-      selectedItems = selectedSquareFeetItems;
-      setSelectedSquareFeetItems(
-        selectedItems.includes(item)
-          ? selectedItems.filter((i) => i !== item)
-          : [...selectedItems, item]
-      );
-    } else if (type === "count") {
-      selectedItems = selectedCountItems;
-      setSelectedCountItems(
-        selectedItems.includes(item)
-          ? selectedItems.filter((i) => i !== item)
-          : [...selectedItems, item]
-      );
-    } else {
-      selectedItems = selectedCubicFeetItems;
-      setSelectedCubicFeetItems(
-        selectedItems.includes(item)
-          ? selectedItems.filter((i) => i !== item)
-          : [...selectedItems, item]
-      );
-    }
+  // Handlers for dropdown selections
+  const handleSelectLinearFeet = (e) => {
+    const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedLinearFeet(selected);
   };
 
+  const handleSelectSquareFeet = (e) => {
+    const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedSquareFeet(selected);
+  };
+
+  const handleSelectCubicFeet = (e) => {
+    const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedCubicFeet(selected);
+  };
+
+  const handleSelectCount = (e) => {
+    const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedCount(selected);
+  };
+
+  // Input handler for integer value
+  const handleInputChange = (e, component) => {
+    setInputValues({
+      ...inputValues,
+      [component]: e.target.value,
+    });
+  };
+
+  // Toggle show state for categories
+  const toggleLinearFeet = () => setShowLinearFeet((prev) => !prev);
+  const toggleSquareFeet = () => setShowSquareFeet((prev) => !prev);
+  const toggleCubicFeet = () => setShowCubicFeet((prev) => !prev);
+  const toggleCount = () => setShowCount((prev) => !prev);
+
+  // Filtered items based on search query
+  const filteredLinearFeetItems = linearFeetItems.filter(item =>
+    item.toLowerCase().includes(linearFeetSearch.toLowerCase())
+  );
+  const filteredSquareFeetItems = squareFeetItems.filter(item =>
+    item.toLowerCase().includes(squareFeetSearch.toLowerCase())
+  );
+  const filteredCubicFeetItems = cubicFeetItems.filter(item =>
+    item.toLowerCase().includes(cubicFeetSearch.toLowerCase())
+  );
+  const filteredCountItems = countItems.filter(item =>
+    item.toLowerCase().includes(countSearch.toLowerCase())
+  );
+
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100 min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center bg-[#e8e8e8] min-h-screen p-4">
+      <div className="flex flex-col items-center justify-center bg-[#ffffff] rounded shadow">
       {showForm1 ? (
         <>
           <h1 className="text-3xl font-bold text-gray-900 mt-6 md:mt-0">
@@ -140,170 +169,214 @@ function Form1() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 text-center">
             {/* Linear Feet */}
             <div className="bg-transparent p-4 rounded-lg">
-              <div className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]">
-                <h2 className="text-lg font-semibold text-[#e6a310]">
-                  Linear Feet
-                </h2>
+              <div
+                className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]"
+                onClick={toggleLinearFeet}
+              >
+                <h2 className="text-lg font-semibold text-[#e6a310]">Linear Feet</h2>
               </div>
-              <div className="bg-[#e8e8e8] p-4 shadow-md w-full">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 border rounded-md text-gray-600 bg-transparent border-2 border-[#203a53]"
-                />
-                <ul className="mt-3 space-y-2 overflow-auto max-h-72">
-                  {linearFeetItems
-                    .filter((item) =>
-                      item.toLowerCase().includes(searchTerm.toLowerCase())
-                    )
-                    .map((item) => (
-                      <li
-                        key={item}
-                        onClick={() => handleSelectItem(item, "linearFeet")}
-                        className={`${
-                          selectedLinearFeetItems.includes(item)
-                            ? "bg-[#e6a310] text-[#203a53]"
-                            : "bg-[#203a53] text-white"
-                        } hover:bg-[#e6a310] hover:text-[#203a53] p-2 rounded-md cursor-pointer`}
-                      >
+              {showLinearFeet && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={linearFeetSearch}
+                    onChange={(e) => setLinearFeetSearch(e.target.value)}
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                  />
+                  <select
+                    multiple
+                    className="bg-[#e8e8e8] p-4 shadow-md w-full border-2 border-[#203a53] text-gray-600 rounded-md mt-2"
+                    onChange={handleSelectLinearFeet}
+                  >
+                    {filteredLinearFeetItems.map((item) => (
+                      <option key={item} value={item}>
                         {item}
-                      </li>
+                      </option>
                     ))}
-                </ul>
-              </div>
+                  </select>
+                  <div className=" text-[#203a53]">
+                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <h3 className="font-semibold">Selected Linear Feet:</h3>
+                    <ul>
+                      {selectedLinearFeet.map((item) => (
+                        <li key={item} className="text-[11px] text-[#e6a310] flex items-center justify-between text-left">
+                          {item}{" "}
+                          <input
+                            type="number"
+                            value={inputValues[item] || ""}
+                            onChange={(e) => handleInputChange(e, item)}
+                            placeholder="Enter value"
+                            className="border-2 border-[#203a53] p-2 mt-1 rounded-md"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Square Feet */}
-            <div className="bg-transparent p-4">
-              <div className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]">
-                <h2 className="text-lg font-semibold text-[#e6a310]">
-                  Square Feet
-                </h2>
+            <div className="bg-transparent p-4 rounded-lg">
+              <div
+                className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]"
+                onClick={toggleSquareFeet}
+              >
+                <h2 className="text-lg font-semibold text-[#e6a310]">Square Feet</h2>
               </div>
-              <div className="bg-[#e8e8e8] p-4 shadow-md w-full">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchTermSq}
-                  onChange={(e) => setSearchTermSq(e.target.value)}
-                  className="w-full p-2 border rounded-md text-gray-600 bg-transparent border-2 border-[#203a53]"
-                />
-                <ul className="mt-3 space-y-2 overflow-auto max-h-72">
-                  {squareFeetItems
-                    .filter((item) =>
-                      item.toLowerCase().includes(searchTermSq.toLowerCase())
-                    )
-                    .map((item) => (
-                      <li
-                        key={item}
-                        onClick={() => handleSelectItem(item, "squareFeet")}
-                        className={`${
-                          selectedSquareFeetItems.includes(item)
-                            ? "bg-[#e6a310] text-[#203a53]"
-                            : "bg-[#203a53] text-white"
-                        } hover:bg-[#e6a310] hover:text-[#203a53] p-2 rounded-md cursor-pointer`}
-                      >
+              {showSquareFeet && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={squareFeetSearch}
+                    onChange={(e) => setSquareFeetSearch(e.target.value)}
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                  />
+                  <select
+                    multiple
+                    className="bg-[#e8e8e8] p-4 shadow-md w-full border-2 border-[#203a53] text-gray-600 rounded-md mt-2"
+                    onChange={handleSelectSquareFeet}
+                  >
+                    {filteredSquareFeetItems.map((item) => (
+                      <option key={item} value={item}>
                         {item}
-                      </li>
+                      </option>
                     ))}
-                </ul>
-              </div>
+                  </select>
+                  <div className="text-[#203a53]">
+                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <h3 className="font-semibold">Selected Square Feet:</h3>
+                    <ul>
+                      {selectedSquareFeet.map((item) => (
+                        <li key={item} className="text-[11px] text-[#e6a310] flex items-center justify-between text-left">
+                          {item}{" "}
+                          <input
+                            type="number"
+                            value={inputValues[item] || ""}
+                            onChange={(e) => handleInputChange(e, item)}
+                            placeholder="Enter value"
+                            className="border-2 border-[#203a53] p-2 mt-1 rounded-md"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Cubic Feet */}
-            <div className="bg-transparent p-4">
-              <div className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]">
-                <h2 className="text-lg font-semibold text-[#e6a310]">
-                  Cubic Feet
-                </h2>
+            <div className="bg-transparent p-4 rounded-lg">
+              <div
+                className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]"
+                onClick={toggleCubicFeet}
+              >
+                <h2 className="text-lg font-semibold text-[#e6a310]">Cubic Feet</h2>
               </div>
-              <div className="bg-[#e8e8e8] p-4 shadow-md w-full">
-                <ul className="mt-2 space-y-2">
-                  {["Footing", "Slab"].map((item) => (
-                    <li
-                      key={item}
-                      onClick={() => handleSelectItem(item, "cubicFeet")}
-                      className={`${
-                        selectedCubicFeetItems.includes(item)
-                          ? "bg-[#e6a310] text-[#203a53]"
-                          : "bg-[#203a53] text-white"
-                      } hover:bg-[#e6a310] hover:text-[#203a53] p-2 rounded-md cursor-pointer`}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {showCubicFeet && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={cubicFeetSearch}
+                    onChange={(e) => setCubicFeetSearch(e.target.value)}
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                  />
+                  <select
+                    multiple
+                    className="bg-[#e8e8e8] p-4 shadow-md w-full border-2 border-[#203a53] text-gray-600 rounded-md mt-2"
+                    onChange={handleSelectCubicFeet}
+                  >
+                    {filteredCubicFeetItems.map((item) => (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="text-[#203a53]">
+                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <h3 className="font-semibold">Selected Cubic Feet:</h3>
+                    <ul>
+                      {selectedCubicFeet.map((item) => (
+                        <li key={item} className="text-[11px] text-[#e6a310] flex items-center justify-between text-left">
+                          {item}{" "}
+                          <input
+                            type="number"
+                            value={inputValues[item] || ""}
+                            onChange={(e) => handleInputChange(e, item)}
+                            placeholder="Enter value"
+                            className="border-2 border-[#203a53] p-2 mt-1 rounded-md"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Count */}
-            <div className="bg-transparent p-4">
-              <div className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]">
+            <div className="bg-transparent p-4 rounded-lg">
+              <div
+                className="bg-white p-2 rounded-lg shadow-md border-2 border-[#e6a310]"
+                onClick={toggleCount}
+              >
                 <h2 className="text-lg font-semibold text-[#e6a310]">Count</h2>
               </div>
-              <div className="bg-[#e8e8e8] p-4 shadow-md w-full">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchTermCount}
-                  onChange={(e) => setSearchTermCount(e.target.value)}
-                  className="w-full p-2 border rounded-md text-gray-600 bg-transparent border-2 border-[#203a53]"
-                />
-                <ul className="mt-3 space-y-2 overflow-auto max-h-72">
-                  {countItems
-                    .filter((item) =>
-                      item.toLowerCase().includes(searchTermCount.toLowerCase())
-                    )
-                    .map((item) => (
-                      <li
-                        key={item}
-                        onClick={() => handleSelectItem(item, "count")}
-                        className={`${
-                          selectedCountItems.includes(item)
-                            ? "bg-[#e6a310] text-[#203a53]"
-                            : "bg-[#203a53] text-white"
-                        } hover:bg-[#e6a310] hover:text-[#203a53] p-2 rounded-md cursor-pointer`}
-                      >
+              {showCount && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={countSearch}
+                    onChange={(e) => setCountSearch(e.target.value)}
+                    className="bg-[#e8e8e8] p-2 w-full mt-2 rounded-md border-2 border-[#203a53]"
+                  />
+                  <select
+                    multiple
+                    className="bg-[#e8e8e8] p-4 shadow-md w-full border-2 border-[#203a53] text-gray-600 rounded-md mt-2"
+                    onChange={handleSelectCount}
+                  >
+                    {filteredCountItems.map((item) => (
+                      <option key={item} value={item}>
                         {item}
-                      </li>
+                      </option>
                     ))}
-                </ul>
-              </div>
+                  </select>
+                  <div className="text-[#203a53]">
+                    <p className="text-[#e6a310]/40 text-[12px]">*Ctrl+click* for multiple selection</p>
+                    <h3 className="font-semibold">Selected Count:</h3>
+                    <ul>
+                      {selectedCount.map((item) => (
+                        <li key={item} className="text-[11px] text-[#e6a310] flex items-center justify-between text-left">
+                          {item}{" "}
+                          <input
+                            type="number"
+                            value={inputValues[item] || ""}
+                            onChange={(e) => handleInputChange(e, item)}
+                            placeholder="Enter value"
+                            className="border-2 border-[#203a53] p-2 mt-1 rounded-md"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
           <button
             onClick={() => alert("Project Created")}
-            className="mt-6 px-6 py-3 bg-[#203a53] hover:bg-[#e6a310] hover:text-[#203a53] text-white rounded-lg shadow-md"
+            className="mt-6 px-6 py-3 mb-5 bg-[#203a53] hover:bg-[#e6a310] hover:text-[#203a53] text-white rounded-lg shadow-md"
           >
             Create project
           </button>
-
-          <div className="mt-6 flex justify-center items-center gap-8">
-            {/* Left Arrow */}
-            <button
-              onClick={() => setShowForm1(false)}
-              className="flex items-center gap-2 px-6 py-3 bg-[#e6a310] hover:bg-[#203a53] hover:text-[#e6a310] text-[#203a53] font-semibold rounded-lg shadow-md transition-all"
-            >
-              <span className="text-2xl">&#8592;</span>
-              <span>Previous</span>
-            </button>
-
-            {/* Right Arrow */}
-            <button
-              onClick={() => setShowForm1(false)}
-              className="flex items-center gap-2 px-6 py-3 bg-[#e6a310] hover:bg-[#203a53] hover:text-[#e6a310] text-[#203a53] font-semibold rounded-lg shadow-md transition-all"
-            >
-              <span>Next</span>
-              <span className="text-2xl">&#8594;</span>
-            </button>
-          </div>
         </>
-      ) : (
-        <Form2 />
-      )}
+      ) : null}
+        </div>
     </div>
   );
 }
