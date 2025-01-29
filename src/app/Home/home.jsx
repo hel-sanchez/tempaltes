@@ -165,6 +165,22 @@ function Home() {
           NEWER TEMPLATE
         </button>
       </Link>
+
+      <Link to="/F1">
+        <button
+          style={{
+            margin: '10px',
+            padding: '15px 30px',
+            backgroundColor: 'orange',
+            color: 'black',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+          }}
+        >
+          FORM TEMPLATE
+        </button>
+      </Link>
     </div>
   );
 }

@@ -80,7 +80,7 @@ const TimeSaving = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="text-left mt-12 ml-14">
+      <div className="text-center mt-12 ml-14">
         <button
           onClick={() =>
             window.Calendly.initPopupWidget({

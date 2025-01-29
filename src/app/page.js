@@ -12,6 +12,7 @@ import New1 from './Templates/new-template/new-1';
 import T1 from './Templates/t1/t1';
 import T2 from './Templates/t2/t2';
 import N1 from './Templates/newer/New1';
+import F1 from './Templates/form/form1';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/T1" element={<T1 />} />
         <Route path="/T2" element={<T2 />} />
         <Route path="/N1" element={<N1 />} />
+        <Route path="/F1" element={<F1 />} />
       </Routes>
     </Router>
   );
