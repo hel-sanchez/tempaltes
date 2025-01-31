@@ -1,85 +1,88 @@
-import React from "react";
-import {
-  BsFillCalendarCheckFill,
-  BsPersonFill,
-  BsFillGearFill,
-} from "react-icons/bs";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const SimpleSteps = () => {
+  const images = ["/demo.jpg", "/login.jpg"];
+  const [isFirstImageFront, setIsFirstImageFront] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFirstImageFront((prev) => !prev); // Swap images every 5 seconds
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="bg-[#e8e8e8] py-20">
-      {/* Header Section */}
-      <div className="text-center mb-12 px-6">
-        <h2 className="text-3xl font-bold text-[#203a53] mb-4">
+    <section className="flex items-center justify-between py-16 px-8 bg-white mt-16">
+      {/* Left side - Image with swapping transition effect */}
+      <div className="w-full md:w-1/2 relative mb-10 md:mb-0 h-[600px]">
+        {/* First Image (Initial Front) */}
+        <motion.img
+          src={images[0]}
+          alt="First Image"
+          className="absolute inset-0 w-full h-full rounded-lg shadow-lg"
+          style={{ zIndex: isFirstImageFront ? 2 : 1 }}
+          animate={{
+            opacity: isFirstImageFront ? 1 : 0.5, // Moves to back but still visible
+            scale: isFirstImageFront ? 1 : 0.95, // Slight zoom-out when moving back
+            y: isFirstImageFront ? 0 : -40, // Moves slightly up when going back
+          }}
+          initial={{ opacity: 1, y: 0 }} // Starts fully visible
+          transition={{ duration: 1, ease: "easeInOut" }}
+        />
+
+        {/* Second Image (Initial Behind and Slightly Above) */}
+        <motion.img
+          src={images[1]}
+          alt="Second Image"
+          className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
+          style={{ zIndex: isFirstImageFront ? 1 : 2 }}
+          animate={{
+            opacity: isFirstImageFront ? 0.5 : 1, // Moves to front
+            scale: isFirstImageFront ? 0.95 : 1, // Slight zoom-in when moving forward
+            y: isFirstImageFront ? -40 : 0, // Moves down into place
+          }}
+          initial={{ opacity: 0.5, y: -20 }} // Starts slightly above and faded
+          transition={{ duration: 1, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Right side - Text and Button */}
+      <div className="w-full md:w-1/2 p-14 text-left z-10">
+        <motion.h2
+          className="text-5xl font-semibold text-[#f6b800] mb-4 leading-tight"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
           3 Simple Steps to Success
-        </h2>
-        <p className="text-lg text-[#191919]">
-          Build more efficiently with our software and support.
-        </p>
-      </div>
-
-      {/* Steps Section */}
-      <div className="flex flex-wrap justify-center gap-12 px-6">
-        {/* Step 1 */}
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="relative w-32 h-32 flex items-center justify-center rounded-full border-[5px] border-[#203a53] mb-4 transition-transform duration-300 group hover:scale-105">
-            <div className="absolute w-24 h-24 bg-white rounded-full border-[3px] border-[#203a53] group-hover:bg-[#191919] hover:scale-105 transition-colors duration-300 flex items-center justify-center">
-              <BsFillCalendarCheckFill className="text-[#e6a310] text-4xl transition-colors duration-300 group-hover:text-[#e8e8e8]" />
-            </div>
-          </div>
-          <h3 className="text-lg font-semibold text-[#191919] mb-2">
-            Schedule Your Demo
-          </h3>
-          <p className="text-sm text-[#191919]">
-            Experience our software in action.
-          </p>
-        </div>
-
-        {/* Step 2 */}
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="relative w-32 h-32 flex items-center justify-center rounded-full border-[5px] border-[#203a53] mb-4 transition-transform duration-300 group hover:scale-105">
-            <div className="absolute w-24 h-24 bg-white rounded-full border-[3px] border-[#203a53] group-hover:bg-[#191919] transition-colors duration-300 flex items-center hover:scale-105 justify-center">
-              <BsPersonFill className="text-[#e6a310] text-4xl transition-colors duration-300 group-hover:text-[#e8e8e8]" />
-            </div>
-          </div>
-          <h3 className="text-lg font-semibold text-[#191919] mb-2">
-            Sign Up for Your Account
-          </h3>
-          <p className="text-sm text-191919">
-            Easy onboarding to get you started.
-          </p>
-        </div>
-
-        {/* Step 3 */}
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="relative w-32 h-32 flex items-center justify-center rounded-full border-[5px] border-[#203a53] mb-4 transition-transform duration-300 group hover:scale-105">
-            <div className="absolute w-24 h-24 bg-white rounded-full border-[3px] border-[#203a53] group-hover:bg-[#191919] transition-colors duration-300 flex items-center justify-center hover:scale-105">
-              <BsFillGearFill className="text-[#e6a310] text-4xl transition-colors duration-300 group-hover:text-[#e8e8e8]" />
-            </div>
-          </div>
-          <h3 className="text-lg font-semibold text-[#333333] mb-2">
-            Maximize Your Proposals
-          </h3>
-          <p className="text-sm text-black">
-            Create accurate proposals in minutes.
-          </p>
-        </div>
-      </div>
-
-      {/* Call-to-Action Button */}
-      <div className="text-center mt-12">
-        <button
+        </motion.h2>
+        <motion.ul
+          className="list-inside list-disc text-2xl text-[#191919] pl-6 mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeInOut" }}
+        >
+          <li>Schedule Your Demo</li>
+          <li>Set Up Your Account</li>
+          <li>Streamline Your Proposals</li>
+        </motion.ul>
+        <motion.button
           onClick={() =>
             window.Calendly.initPopupWidget({
               url: "https://calendly.com/avorino/simple-projex-demo",
             })
           }
-          className="px-8 py-4 bg-[#e6a310] text-[#e8e8e8] font-semibold text-lg rounded-lg shadow-lg hover:bg-[#203a53] transition-all duration-300 hover:scale-105"
+          className="block mx-auto bg-[#e6a310] text-[#191919] px-8 font-sans tracking-widest py-3 text-2sm font-semibold uppercase hover:bg-[#203a53] hover:text-white transition duration-300"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.4, ease: "easeInOut" }}
         >
           Schedule a Demo
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </section>
   );
 };
 

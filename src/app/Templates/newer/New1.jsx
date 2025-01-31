@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import About from "./about";
-import Succeed from "./succeed";
+import { Envelope, Phone, PinMapFill } from "react-bootstrap-icons";
+import { motion } from "framer-motion";
+
 import SimpleSteps from "./simplestep";
+import TimeSaving from "./timesaving";
+import Succeed from "./succeed";
+import CountUp from "./countup";
 import Proposal from "./proposal";
 import Footer from "./footer";
-import Link from "next/link";
 
-import { Envelope, Phone, PinMapFill, List } from "react-bootstrap-icons";
+import Link from "next/link";
 
 export default function New1() {
   const [scrolling, setScrolling] = useState(false);
@@ -61,102 +64,96 @@ export default function New1() {
   }, [screenSize]); // Re-run effect when screenSize changes
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col bg-white">
       {/* Header */}
       <header
         className={`fixed top-0 left-0 w-full py-2 transition-all duration-1000 ease-in-out z-50 ${
-          scrolling
-            ? "bg-[#e8e8e8] shadow-md"
-            : "bg-cover bg-center bg-no-repeat"
+          scrolling ? "bg-white shadow-md" : "bg-cover bg-center bg-no-repeat"
         }`}
         style={{
-          backgroundImage: scrolling ? "none" : `url('/headpic.jpg')`, // Corrected the URL string
+          backgroundImage: scrolling ? "none" : `url('/Home-picture.png')`,
           height: headerHeight,
         }}
       >
-        {/* Top bar for contact info */}
-        <div className="bg-transparent py-1 text-sm text-[#191919] hidden sm:block">
-          <div className="max-w-7xl mx-auto flex justify-end items-center px-6">
+        {/* White Overlay */}
+        {!scrolling && (
+          <div className="absolute inset-0 bg-white opacity-50 transition-opacity duration-500"></div>
+        )}
+
+        {/* Navbar */}
+        <div className="max-w-7xl mx-auto flex justify-between items-start relative">
+          {/* Left Side: Contact Info and Login/Signup */}
+          <div className="flex flex-col space-y-1 mt-3">
+            {/* Contact Info at the Top */}
             <div className="flex space-x-6">
               <div className="flex items-center space-x-1">
-                <Envelope className="w-4 h-4 text-[#203a53]" />
+                <Envelope className="w-4 h-4 text-[#191919] transition-transform duration-300" />
                 <span className="text-[#191919]">info@example.com</span>
               </div>
               <div className="flex items-center space-x-1">
-                <Phone className="w-4 h-4 text-[#203a53]" />
+                <Phone className="w-4 h-4 text-[#191919] transition-transform duration-300" />
                 <span className="text-[#191919]">(123) 456-7890</span>
               </div>
               <div className="flex items-center space-x-1">
-                <PinMapFill className="w-4 h-4 text-[#203a53]" />
+                <PinMapFill className="w-4 h-4 text-[#191919] transition-transform duration-300" />
                 <span className="text-[#191919]">Irvine, California</span>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 relative">
-          {/* Logo */}
-          <div className="mb-5">
+            {/* Login/Signup Buttons at the Bottom */}
+            <div className="hidden lg:flex space-x-4">
+              <Link
+                href="/login"
+                className={`bg-[#203a53] text-[#e8e8e8] border-2 border-[#203a53] mb-3 text-md px-4 py-2 rounded-lg hover:bg-[#e6a310] hover:border-[#e6a310] hover:text-[#191919] transition-all duration-300 ${
+                  scrolling ? "text-sm px-2 py-1" : "text-md"
+                }`}
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className={`bg-[#e6a310] border-2 mb-3 text-md border-[#203a53] text-[#203a53] px-4 py-2 rounded-lg hover:border-[#e6a310] hover:bg-[#203a53] hover:text-white transition-all duration-300 ${
+                  scrolling ? "text-sm px-2 py-1" : "text-md"
+                }`}
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Side: Logo */}
+          <div className="ml-auto mb-5">
             <Link href="/">
               <img
-                src={scrolling ? "/logo-blue.png" : "/logo-orangefill.png"}
+                src={scrolling ? "/logo-no-bg.png" : "/logo-no-bg.png"}
                 alt="Simple Projex Logo"
                 className={`transition-all duration-1000 ${
-                  scrolling ? "h-12" : "h-16"
+                  scrolling ? "h-20 scale-up mt-1" : "h-28 mt-3"
                 }`}
               />
-            </Link>
-          </div>
-
-          {/* Mobile Hamburger Icon */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-[#203a53] mb-6 bg-transparent justify-center text-center rounded-md"
-          >
-            <List className="w-6 h-6" />
-          </button>
-
-          {/* Desktop Buttons */}
-          <div className="hidden lg:flex space-x-4">
-            <Link
-              href="/login"
-              className={`bg-[#203a53] text-[#e8e8e8] border-2 border-[#203a53]  mb-3 text-md px-4 py-2  rounded-lg hover:bg-[#e6a310] hover:border-[#e6a310] hover:text-[#191919] transition duration-300 ${
-                scrolling ? "text-sm px-2 py-1" : "text-md"
-              }`}
-            >
-              Login
-            </Link>
-            <Link
-              href="/signup"
-              className={`bg-transparent border-2 mb-3 text-md border-[#203a53] text-[#203a53] px-4 py-2 rounded-lg  hover:border-[#e6a310] hover:text-[#e6a310] transition duration-300 ${
-                scrolling ? "text-sm px-2 py-1" : "text-md"
-              }`}
-            >
-              Sign Up
             </Link>
           </div>
         </div>
 
         {/* Main Content Inside Header (Visible only when header is expanded) */}
         {!scrolling && (
-          <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight mb-2 animate-fade-in relative">
-              <span className="relative text-[#203a53]">
-                Proposals Made Easy
-              </span>
+          <div className="absolute bottom-40 left-16 w-3/4 pl-14 text-left animate-fade-up">
+            <h1 className="text-6xl font-bold text-[#203a53] leading-tight">
+              Are you tired of slow and <br />
+              inaccurate construction proposals?
             </h1>
-            <p className="text-md sm:text-xl md:text-lg text-[#191919] mb-10 animate-slide-left animate-delay-400 max-w-xl mx-auto">
-              If you're struggling with proposals, Simple Projex <br/>is the right
-              solution for you!
+            <p className="text-2xl text-[#191919] mt-4">
+              Proposals done in minutes, higher <br />
+              accuracy, and increased profitability.
             </p>
-            <div className="space-x-8 animate-fade-in animate-delay-600">
+            <div className="mt-6">
               <button
                 onClick={() =>
                   window.Calendly.initPopupWidget({
                     url: "https://calendly.com/avorino/simple-projex-demo",
                   })
                 }
-                className="bg-[#e6a310] text-[#191919] px-10 py-2  text-lg font-semibold hover:text-black hover:bg-[#203a53] hover:text-white transition duration-300 transform hover:scale-105"
+                className="bg-[#e6a310] text-[#191919] px-8 font-sans tracking-wider py-3 text-lg font-bold uppercase hover:bg-[#203a53] hover:text-white transition-all duration-300"
               >
                 Schedule a Demo
               </button>
@@ -164,7 +161,6 @@ export default function New1() {
           </div>
         )}
       </header>
-
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div
@@ -208,7 +204,7 @@ export default function New1() {
         </div>
       )}
 
-      {/* About Us Section */}
+      {/* SimpleSteps Section */}
       <section
         style={{
           minHeight: "100vh",
@@ -217,22 +213,93 @@ export default function New1() {
         }}
         className="transition-all duration-1000 ease-in-out mt-12"
       >
-        <About />
+        <SimpleSteps />
       </section>
 
-      {/* Succeed Section */}
-      <div
+      {/* Line Section */}
+      <hr className="border-t-3 border-[#191919]" />
+
+      {/* HelpSucceed Section */}
+      <motion.div
         style={{
           paddingTop: `${scrolling ? "0" : "100vh"}`,
           paddingBottom: "0",
         }}
         className="transition-all duration-1000 ease-in-out"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: scrolling ? 1 : 0, y: scrolling ? 0 : 40 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
       >
         <Succeed />
-        <SimpleSteps />
+      </motion.div>
+
+      {/* Line Section */}
+      <hr className="border-t-3 border-[#191919]" />
+
+      {/* Countup Section */}
+      <motion.div
+        style={{
+          paddingTop: `${scrolling ? "0" : "100vh"}`,
+          paddingBottom: "0",
+        }}
+        className="transition-all duration-1000 ease-in-out"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: scrolling ? 1 : 0, y: scrolling ? 0 : 40 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      >
+        <CountUp />
+      </motion.div>
+
+      {/* Line Section */}
+      <hr className="border-t-3 border-[#191919]" />
+
+      {/* TimeSaving Section */}
+      <motion.div
+        style={{
+          paddingTop: `${scrolling ? "0" : "100vh"}`,
+          paddingBottom: "0",
+        }}
+        className="transition-all duration-1000 ease-in-out"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: scrolling ? 1 : 0, y: scrolling ? 0 : 40 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      >
         <Proposal />
+      </motion.div>
+
+      {/* Line Section */}
+      <hr className="border-t-3 border-[#191919]" />
+
+      {/* Goodbye Section */}
+      <motion.div
+        style={{
+          paddingTop: `${scrolling ? "0" : "100vh"}`,
+          paddingBottom: "0",
+        }}
+        className="transition-all duration-1000 ease-in-out"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: scrolling ? 1 : 0, y: scrolling ? 0 : 40 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      >
+        <TimeSaving />
+      </motion.div>
+
+      {/* Line Section */}
+      <hr className="border-t-3 border-[#191919]" />
+
+      {/* Footer Section */}
+      <motion.div
+        style={{
+          paddingTop: `${scrolling ? "0" : "100vh"}`,
+          paddingBottom: "0",
+        }}
+        className="transition-all duration-1000 ease-in-out"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: scrolling ? 1 : 0, y: scrolling ? 0 : 40 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      >
         <Footer />
-      </div>
+      </motion.div>
     </div>
   );
 }
