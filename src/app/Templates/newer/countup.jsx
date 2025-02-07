@@ -11,7 +11,7 @@ const pieData = [
   { name: "Awards", value: 39, color: "#f8b400" },
 ];
 
-const Count = () => {
+const Count = ({ darkMode }) => {
   const [activeData, setActiveData] = useState(
     pieData.map((d) => ({ ...d, value: 0 }))
   );
@@ -59,7 +59,11 @@ const Count = () => {
   }, []); // Empty dependency array ensures this effect runs only once
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between bg-white py-16 px-16 mt-16 mb-16">
+    <section
+      className={`flex flex-col md:flex-row items-center justify-between py-16 px-16 mt-16 mb-16 ${
+        darkMode ? "bg-[#191919] text-gray-200" : "bg-white text-[#191919]"
+      }`}
+    >
       {/* Left Text Section */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
@@ -67,16 +71,28 @@ const Count = () => {
         transition={{ duration: 0.8 }}
         className="w-full md:w-1/2 mb-10 md:mb-0 text-center"
       >
-        <h2 className="text-7xl font-bold text-[#e6a310] mb-4 font-serif">
+        <h2
+          className={`text-7xl font-bold mb-4 font-serif ${
+            darkMode ? "text-[#e6a310]" : "text-[#e6a310]"
+          }`}
+        >
           TRANSFORMING THE INDUSTRY:
         </h2>
-        <p className="text-xl text-[#203a53] mb-6">
+        <p
+          className={`text-xl mb-6 ${
+            darkMode ? "text-gray-200" : "text-[#203a53]"
+          }`}
+        >
           Discover how we connect contractors with exciting opportunities and
           streamline project management for maximum efficiency and success.
         </p>
 
         <button
-          className="bg-[#e6a310] text-[#191919] px-10 py-4 text-lg font-semibold uppercase hover:bg-[#203a53] hover:text-white transition duration-300"
+          className={`${
+            darkMode
+              ? "bg-[#e6a310] text-[#191919] hover:bg-[#203a53] hover:text-white"
+              : "bg-[#e6a310] text-[#191919] hover:bg-[#203a53] hover:text-white"
+          } px-10 py-4 text-lg font-semibold uppercase transition duration-300`}
           onClick={() =>
             window.Calendly.initPopupWidget({
               url: "https://calendly.com/avorino/simple-projex-demo",
@@ -119,7 +135,7 @@ const Count = () => {
                     <text
                       x={isLeft ? x - offset : x + offset} // Positioning text to the left or right
                       y={y}
-                      fill="black"
+                      fill={darkMode ? "white" : "black"} // Adjust text color for dark mode
                       dominantBaseline="central"
                       textAnchor={isLeft ? "end" : "start"} // Align text depending on position
                     >
@@ -129,7 +145,7 @@ const Count = () => {
                     <text
                       x={isLeft ? x - offset : x + offset} // Same as above for count-up text
                       y={y + 15} // Slight vertical offset for count-up
-                      fill="black"
+                      fill={darkMode ? "white" : "black"} // Adjust text color for dark mode
                       dominantBaseline="central"
                       textAnchor={isLeft ? "end" : "start"}
                     >
@@ -137,6 +153,7 @@ const Count = () => {
                     </text>
                   </g>
                 );
+                
               }}
               labelLine={false} // Remove label line
               endAngle={endAngle} // Set the endAngle for the pie chart (this will animate)

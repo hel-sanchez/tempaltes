@@ -13,6 +13,7 @@ import T1 from './Templates/t1/t1';
 import T2 from './Templates/t2/t2';
 import N1 from './Templates/newer/New1';
 import F1 from './Templates/form/form1';
+import Fold1 from './Templates/Folder1/Sidebar/Sidebar';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/T2" element={<T2 />} />
         <Route path="/N1" element={<N1 />} />
         <Route path="/F1" element={<F1 />} />
+        <Route path="/Fold1" element={<Fold1 />} />
       </Routes>
     </Router>
   );

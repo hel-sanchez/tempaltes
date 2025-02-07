@@ -181,6 +181,22 @@ function Home() {
           FORM TEMPLATE
         </button>
       </Link>
+
+      <Link to="/Fold1">
+        <button
+          style={{
+            margin: '10px',
+            padding: '15px 30px',
+            backgroundColor: 'orange',
+            color: 'black',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+          }}
+        >
+          FOLDER TEMPLATE
+        </button>
+      </Link>
     </div>
   );
 }
