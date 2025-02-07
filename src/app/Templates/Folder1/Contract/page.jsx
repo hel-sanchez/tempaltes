@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { SquareIcon, CircleIcon, HeadingIcon, FilePlusIcon } from "sebikostudio-icons";
+import {
+  SquareIcon,
+  CircleIcon,
+  HeadingIcon,
+  FilePlusIcon,
+} from "sebikostudio-icons";
 
-const Page = () => {
+const Page = ({ isDarkMode }) => {
   const [canvasWidth, setCanvasWidth] = useState(800); // Initial canvas width
   const [canvasHeight, setCanvasHeight] = useState(600); // Initial canvas height
 
@@ -28,48 +33,62 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div
+      className={`flex h-screen ${isDarkMode ? "bg-[#191919]" : "bg-white"}`}
+    >
       {/* Sidebar */}
-      <div className="flex flex-col gap-4 bg-[#191919] text-white items-center p-4 transition-all">
+      <div
+        className={`flex flex-col gap-4 ${
+          isDarkMode ? "bg-[#e9a409] text-white" : "bg-[#e9a409] text-black"
+        } items-center transition-all`}
+      >
         {/* Sidebar Content */}
-        <div className="flex flex-col gap-4 bg-[#e6a310] p-4 rounded-lg">
+        <div className="flex flex-col gap-4 p-4 rounded-lg">
           {/* Square Icon */}
           <div
-            className="flex items-center justify-center bg-gray-700 p-3 rounded-md hover:bg-gray-600 cursor-pointer transition duration-300"
+            className={`flex items-center justify-center ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            } p-3 rounded-md cursor-pointer transition duration-300`}
             onClick={addRectangle}
           >
-            <SquareIcon className="w-8 h-8 text-white" />
+            <SquareIcon className="w-8 h-8" />
           </div>
 
           {/* Circle Icon */}
           <div
-            className="flex items-center justify-center bg-gray-700 p-3 rounded-md hover:bg-gray-600 cursor-pointer transition duration-300"
+            className={`flex items-center justify-center ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            } p-3 rounded-md cursor-pointer transition duration-300`}
             onClick={addText}
           >
-            <CircleIcon className="w-8 h-8 text-white" />
+            <CircleIcon className="w-8 h-8" />
           </div>
 
           {/* Heading Icon */}
           <div
-            className="flex items-center justify-center bg-gray-700 p-3 rounded-md hover:bg-gray-600 cursor-pointer transition duration-300"
+            className={`flex items-center justify-center ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            } p-3 rounded-md cursor-pointer transition duration-300`}
             onClick={addHeader}
           >
-            <HeadingIcon className="w-8 h-8 text-white" />
+            <HeadingIcon className="w-8 h-8" />
           </div>
 
           {/* FilePlus Icon (for upload) */}
           <div
-            className="flex items-center justify-center bg-gray-700 p-3 rounded-md hover:bg-gray-600 cursor-pointer transition duration-300"
+            className={`flex items-center justify-center ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            } p-3 rounded-md cursor-pointer transition duration-300`}
             onClick={addUploadButton}
           >
-            <FilePlusIcon className="w-8 h-8 text-white" />
+            <FilePlusIcon className="w-8 h-8" />
           </div>
         </div>
       </div>
 
       {/* Resizable Canvas */}
       <div
-        className="flex-grow bg-white"
+        className={`flex-grow ${isDarkMode ? "bg-[#2e2e2e]" : "bg-white"}`}
         style={{
           width: `${canvasWidth}px`,
           height: `${canvasHeight}px`,
@@ -78,7 +97,9 @@ const Page = () => {
       >
         {/* Canvas */}
         <div
-          className="h-full border-t-4 border-[#e9a409] bg-white"
+          className={`h-full border-t-4 ${
+            isDarkMode ? "border-[#e9a409]" : "border-[#e9a409]"
+          } bg-white`}
           style={{ resize: "both", overflow: "hidden" }}
           onMouseDown={(e) => {
             e.preventDefault();
@@ -87,12 +108,10 @@ const Page = () => {
               document.removeEventListener("mousemove", handleResize);
             });
           }}
-        >
-        </div>
+        ></div>
       </div>
     </div>
   );
 };
 
 export default Page;
-

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChatDots,
   ChevronBarLeft,
@@ -6,52 +6,114 @@ import {
   DoorOpen,
   Gear,
   House,
+  LightbulbFill,
   PersonCircle,
+  PlugFill,
+  SearchHeart,
 } from "react-bootstrap-icons";
 import Contract from "../Contract/page.jsx";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    const storedMode = localStorage.getItem("isDarkMode");
+    if (storedMode) {
+      setIsDarkMode(storedMode === "true");
+    }
+  }, []);
+
+  // Save dark mode preference to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem("isDarkMode", isDarkMode);
+  }, [isDarkMode]);
+
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div
+      className={`flex h-screen overflow-hidden ${
+        isDarkMode ? "bg-[#191919] text-white" : "bg-white text-black"
+      }`}
+    >
       <div
-        className={`flex flex-col h-screen bg-[#191919] text-white items-center  ${
-          isCollapsed ? "w-20" : "w-64"
+        className={`flex flex-col h-screen items-center ${
+          isDarkMode ? "bg-[#191919] text-white" : "bg-white text-black"
+        } ${
+          isCollapsed ? "w-21" : "w-64"
         } p-4 transition-all rounded-3xl border-r-2 border-[#e9a409]`}
       >
-        <div className="flex items-center justify-center mb-8 mt-4 gap-4">
+        <div className="flex items-center justify-center mb-8 mt-4 gap-2">
+          {/* Logo */}
           <img
-            src="./logo-dangling-s-darkmode.png"
+            src={
+              isDarkMode
+                ? "./logo-dangling-s-darkmode.png"
+                : "./logo-dangling-s.png"
+            }
             alt="Logo"
-            className={`transition-all ${
+            className={`transition-all w-36 ${
               isCollapsed ? "hidden" : "block"
-            } w-36`}
+            }`}
           />
-          {isCollapsed ? (
-            <ChevronBarRight
-              onClick={toggleSidebar}
-              className="cursor-pointer text-4xl text-[#e6a310] p-1 hover:text-[white]"
-            />
-          ) : (
-            <ChevronBarLeft
-              onClick={toggleSidebar}
-              className="cursor-pointer text-4xl text-[#e6a310] p-1 hover:text-[white]"
-            />
-          )}
+
+          {/* Dark Mode Toggle & Chevron Button (Always on the same row as the logo) */}
+          <div className="inline-flex items-center">
+            {isCollapsed ? (
+              <ChevronBarRight
+                onClick={toggleSidebar}
+                className={`cursor-pointer text-4xl p-0 ${
+                  isDarkMode
+                    ? "text-[#e9a409] hover:text-white"
+                    : "text-[#191919] hover:text-[#e9a409]"
+                }`}
+              />
+            ) : (
+              <ChevronBarLeft
+                onClick={toggleSidebar}
+                className={`cursor-pointer text-4xl p-0 ${
+                  isDarkMode
+                    ? "text-[#e9a409] hover:text-[white]"
+                    : "text-[#191919] hover:text-[#e9a409]"
+                }`}
+              />
+            )}
+
+            <button
+              onClick={toggleDarkMode}
+              className={`p-2 rounded-full border-2 border-[#e9a409] transition-all ${
+                isDarkMode
+                  ? "bg-[#e9a409] text-[#191919] hover:bg-[white] hover:text-[#e9a409]"
+                  : "bg-[#191919] text-[#e9a409] hover:text-[#191919] hover:bg-[#e9a409]"
+              }`}
+            >
+              {isDarkMode ? (
+                <PlugFill className="text-xl" />
+              ) : (
+                <LightbulbFill className="text-xl" />
+              )}
+            </button>
+          </div>
         </div>
 
-        <ul className="space-y-6 flex-grow">
+        <ul className="space-y-6 flex-grow font-bold">
           <li>
             <a
               href="#"
-              className="flex flex-col justify-center items-center space-y-1 text-[#e9a409] hover:text-[white] text-lg p-2 rounded-lg"
+              className={`flex flex-col justify-center items-center space-y-1 text-lg p-2 rounded-lg ${
+                !isDarkMode
+                  ? "text-[#191919] hover:text-[#e9a409]"
+                  : "text-[#e9a409] hover:text-white"
+              }`}
             >
-              <House className="text-2xl" />
+              <House className="text-4xl" />
               <span className={`${isCollapsed ? "hidden" : "inline"}`}>
                 Home
               </span>
@@ -61,7 +123,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex flex-col justify-center items-center space-y-1 text-[#e9a409] hover:text-[white] text-lg p-2 rounded-lg"
+              className={`flex flex-col justify-center items-center space-y-1 text-lg p-2 rounded-lg ${
+                !isDarkMode
+                  ? "text-[#191919] hover:text-[#e9a409]"
+                  : "text-[#e9a409] hover:text-white"
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +135,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-8"
+                className="size-10"
               >
                 <path
                   strokeLinecap="round"
@@ -86,7 +152,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex flex-col justify-center items-center space-y-1 text-[#e9a409] hover:text-[white] text-lg p-2 rounded-lg"
+              className={`flex flex-col justify-center items-center space-y-1  text-lg p-2 rounded-lg ${
+                !isDarkMode
+                  ? "text-[#191919] hover:text-[#e9a409]"
+                  : "text-[#e9a409] hover:text-white"
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +164,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-8"
+                className="size-10"
               >
                 <path
                   strokeLinecap="round"
@@ -111,7 +181,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex flex-col justify-center items-center space-y-1 text-[#e9a409] hover:text-[white] text-lg p-2 rounded-lg"
+              className={`flex flex-col justify-center items-center space-y-1 text-lg p-2 rounded-lg ${
+                !isDarkMode
+                  ? "text-[#191919] hover:text-[#e9a409]"
+                  : "text-[#e9a409] hover:text-white"
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +193,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-8"
+                className="size-10"
               >
                 <path
                   strokeLinecap="round"
@@ -134,14 +208,22 @@ const Sidebar = () => {
           </li>
         </ul>
 
-        <hr className="w-full border-t-2 border-[#e9a409]" />
+        <hr
+          className={`w-full border-t-2 ${
+            isDarkMode ? "border-[#e9a409]" : "border-[#191919]"
+          }`}
+        />
 
         {/* Account, Feedback, Settings, Logout */}
         <ul className="mt-auto">
           <li>
             <a
               href="#"
-              className="flex items-center space-x-2 text-[#e9a409] hover:text-white text-lg p-2 rounded-lg"
+              className={`flex items-center space-x-2 text-lg p-2 rounded-lg ${
+                isDarkMode
+                  ? "text-[#e9a409] hover:text-white"
+                  : "text-black hover:text-[#e9a409]"
+              }`}
             >
               <PersonCircle
                 className={`${isCollapsed ? "inline" : "hidden"} text-2xl mt-2`}
@@ -154,7 +236,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center space-x-2 text-[#e9a409] hover:text-white text-lg p-2 rounded-lg"
+              className={`flex items-center space-x-2 text-lg p-2 rounded-lg ${
+                isDarkMode
+                  ? "text-[#e9a409] hover:text-white"
+                  : "text-black hover:text-[#e9a409]"
+              }`}
             >
               <ChatDots
                 className={`${isCollapsed ? "inline" : "hidden"} text-2xl mt-2`}
@@ -167,7 +253,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center space-x-2 text-[#e9a409] hover:text-white text-lg p-2 rounded-lg"
+              className={`flex items-center space-x-2 text-lg p-2 rounded-lg ${
+                isDarkMode
+                  ? "text-[#e9a409] hover:text-white"
+                  : "text-black hover:text-[#e9a409]"
+              }`}
             >
               <Gear
                 className={`${isCollapsed ? "inline" : "hidden"} text-2xl mt-2`}
@@ -180,7 +270,11 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center space-x-2 text-[#e9a409] hover:text-white text-lg p-2 rounded-lg"
+              className={`flex items-center space-x-2 text-lg p-2 rounded-lg ${
+                isDarkMode
+                  ? "text-[#e9a409] hover:text-white"
+                  : "text-black hover:text-[#e9a409]"
+              }`}
             >
               <DoorOpen
                 className={`${isCollapsed ? "inline" : "hidden"} text-2xl mt-2`}
@@ -194,9 +288,17 @@ const Sidebar = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-grow p-6 transition-all bg-[#191919] overflow-y-auto">
-      <div className="flex items-center justify-between mb-6">
-          <span className="text-3xl font-bold tracking-wider text-[#e9a409]">
+      <div
+        className={`flex-grow p-6 transition-all ${
+          isDarkMode ? "bg-[#191919] text-white" : "bg-white text-black"
+        } overflow-y-auto`}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <span
+            className={`text-3xl font-bold tracking-wider ${
+              isDarkMode ? "text-[#e9a409]" : "text-black"
+            }`}
+          >
             Greetings, User!
           </span>
 
@@ -204,34 +306,35 @@ const Sidebar = () => {
             <input
               type="text"
               placeholder="Search templates, projects, proposals..."
-              className="px-4 py-2 rounded-lg border-2 border-[#e9a409] bg-[#191919] focus:outline-none text-[#e9a409] w-80"
+              className={`px-4 py-2 rounded-lg border-2 ${
+                isDarkMode ? "border-[#e9a409]" : "border-[#191919]"
+              } ${
+                isDarkMode
+                  ? "bg-[#191919] text-[#e9a409]"
+                  : "bg-white text-black"
+              } focus:outline-none w-80`}
             />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="#e9a409"
-              className="absolute right-2 w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11 16.5c2.625 0 4.5-1.875 4.5-4.5S13.625 7.5 11 7.5 6.5 9.375 6.5 12s1.875 4.5 4.5 4.5zM21 21l-4.35-4.35"
-              />
-            </svg>
+            <SearchHeart
+              className={`absolute right-2 ${
+                isDarkMode ? "text-[#e9a409]" : "text-black"
+              }`}
+            />
           </div>
 
           {isCollapsed && (
             <img
-              src={"/logo-dangling-s-darkmode.png"}
+              src={
+                isDarkMode
+                  ? "./logo-dangling-s-darkmode.png"
+                  : "./logo-dangling-s.png"
+              }
               alt="Simple Projex Logo"
               width={150}
               height={150}
             />
           )}
         </div>
-        <Contract />
+        <Contract isDarkMode={isDarkMode} />
       </div>
     </div>
   );
